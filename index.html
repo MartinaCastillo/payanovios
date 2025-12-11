@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Payanovios</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #000;
+      color: white;
+    }
+    .spark {
+  position: absolute;
+  font-size: 20px;
+  animation: spark-animation 700ms ease-out forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes spark-animation {
+  0% {
+    transform: scale(0.4);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.heart {
+  position: fixed;
+  top: -40px;
+  font-size: 24px;
+  animation: heart-fall linear forwards;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+@keyframes heart-fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) translateX(40px) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+    /* -------------------------------- PORTADA -------------------------------- */
+
+    .page {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      padding: 40px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 4px solid #d46bff;
+      background: radial-gradient(circle at top left, #d6ffb0, #61793b, #1d2e0e);
+      overflow: hidden;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: -40px;
+      backdrop-filter: blur(10px);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+      max-width: 1100px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      z-index: 1;
+    }
+
+    .photo-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .photo-circle {
+      width: min(350px, 70vw);
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .photo-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+    }
+
+    .title {
+      font-size: clamp(2.4rem, 3vw, 3rem);
+      letter-spacing: 0.15em;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      line-height: 1.4;
+      opacity: 0.9;
+    }
+
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      background: rgba(0, 0, 0, 0.25);
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.9rem;
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
+    }
+
+    @media (max-width: 900px) {
+      .content {
+        flex-direction: column;
+      }
+      .info {
+        order: -1;
+      }
+    }
+
+    /* -------------------------------- ACERCA DE NOSOTROS -------------------------------- */
+
+    .section-about {
+      padding: 60px 40px 80px;
+      background: radial-gradient(circle at top left, #d6ffb0, #61793b, #1d2e0e);
+      display: flex;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .about-inner {
+      max-width: 1150px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .about-photo {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 4px solid #d46bff;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+    }
+
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-text-card {
+      background: rgba(20, 40, 10, 0.8);
+      border-radius: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      padding: 28px 32px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .about-chip {
+      align-self: center;
+      padding: 10px 26px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      background: rgba(0, 0, 0, 0.25);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    .about-heading {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      text-align: center;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .about-paragraph {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    @media (max-width: 900px) {
+      .section-about {
+        padding: 40px 20px 60px;
+      }
+      .about-inner {
+        grid-template-columns: 1fr;
+      }
+      .about-photo {
+        max-width: 520px;
+        margin: 0 auto;
+      }
+      .about-text-card {
+        padding: 22px 18px 26px;
+      }
+      .about-heading,
+      .about-paragraph {
+        font-size: 0.85rem;
+      }
+    }
+
+    /* -------------------------------- PRIMERAS INTERACCIONES -------------------------------- */
+
+    .section-first {
+      padding: 60px 40px 80px;
+      background: radial-gradient(circle at top left, #d6ffb0, #61793b, #1d2e0e);
+      color: #fff;
+    }
+
+    .first-inner {
+      max-width: 1150px;
+      width: 100%;
+      margin: 0 auto 70px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    .section-first .first-inner:last-child {
+      margin-bottom: 0;
+    }
+
+    .first-text-card {
+      padding: 28px 32px;
+      border-radius: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      background: rgba(20, 40, 10, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .first-chip {
+      align-self: center;
+      padding: 10px 26px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      background: rgba(0, 0, 0, 0.25);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    .first-paragraph {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .first-photo {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 4px solid #d46bff;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+    }
+
+    .first-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .section-first {
+        padding: 40px 20px 60px;
+      }
+
+      .first-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .first-photo {
+        max-width: 520px;
+        margin: 0 auto;
+      }
+
+      .first-paragraph {
+        font-size: 0.85rem;
+      }
+    }
+
+    /* -------------------------------- JUEGO ROMÁNTICO -------------------------------- */
+
+    .section-romantic {
+      padding: 60px 40px 80px;
+      background: radial-gradient(circle at top left, #d6ffb0, #61793b, #1d2e0e);
+      color: #fff;
+    }
+
+    .romantic-inner {
+      max-width: 1150px;
+      width: 100%;
+      margin: 0 auto 60px;
+    }
+
+    .section-romantic .romantic-inner:last-child {
+      margin-bottom: 0;
+    }
+
+    .romantic-chip {
+      align-self: center;
+      padding: 10px 26px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      background: rgba(0, 0, 0, 0.25);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      text-align: center;
+      max-width: 320px;
+      margin: 0 auto 30px;
+    }
+
+    .romantic-card {
+      padding: 26px 32px 30px;
+      border-radius: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      background: rgba(20, 40, 10, 0.45);
+      text-align: center;
+      line-height: 1.7;
+      font-size: 0.9rem;
+    }
+
+    .romantic-card + .romantic-card {
+      margin-top: 40px;
+    }
+
+    /* Pantalla final */
+
+    .romantic-final {
+      max-width: 1150px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    .romantic-final-photo {
+      width: min(380px, 80vw);
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid #d46bff;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+      margin: 0 auto;
+    }
+
+    .romantic-final-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .romantic-final-card {
+      padding: 26px 32px 30px;
+      border-radius: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      background: rgba(20, 40, 10, 0.65);
+      text-align: center;
+      line-height: 1.7;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    @media (max-width: 900px) {
+      .section-romantic {
+        padding: 40px 20px 60px;
+      }
+
+      .romantic-card {
+        font-size: 0.85rem;
+      }
+
+      .romantic-final {
+        grid-template-columns: 1fr;
+      }
+
+      .romantic-final-card {
+        font-size: 0.85rem;
+      }
+    }
+.option {
+  display: block;
+  width: 100%;
+  margin: 6px 0;
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  background: rgba(0,0,0,0.2);
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.option:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.feedback {
+  margin-top: 12px;
+  font-weight: bold;
+  text-align: center;
+  min-height: 20px;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- PORTADA -->
+  <div class="page" id="inicio">
+    <div class="content">
+      <div class="photo-wrapper">
+        <div class="photo-circle">
+          <img src="payanovios.jpg" alt="Payanovios" />
+        </div>
+      </div>
+
+      <div class="info">
+        <h1 class="title">PAYANOVIOS</h1>
+        <p class="subtitle">
+          UNA ACTRIZ/BAILARINA Y UN <br />
+          INGENIERO/ACTOR
+        </p>
+
+        <div class="buttons">
+          <a href="#acerca" class="btn">Acerca de nosotros</a>
+          <a href="#primeras" class="btn">Primeras interacciones</a>
+          <a href="#juego-romantico" class="btn">Juego romántico</a>
+          <a href="#juego-matematico" class="btn">Juego matemático</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACERCA DE NOSOTROS -->
+  <section id="acerca" class="section-about">
+    <div class="about-inner">
+
+      <div class="about-photo">
+        <img src="acerca.jpg" alt="Tahiel y vos" />
+      </div>
+
+      <div class="about-text-card">
+        <div class="about-chip">ACERCA DE NOSOTROS</div>
+
+        <h2 class="about-heading">
+          CUANDO NINGUNO SE ESTABA BUSCANDO, CUANDO TODO ESTABA TRANQUILO,
+          CUANDO LA FELICIDAD PARECÍA ABSOLUTA NOSOTROS NOS ENCONTRAMOS.
+        </h2>
+
+        <p class="about-paragraph">
+          Tahiel es extraordinario, habita una existencia curiosa y eso lo hace tan interesante, porque sabe muchas cosas y lo que no sabe lo aprende. No hay posibilidad de que tus conversaciones con él sean aburridas, le gusta filosofar y preguntarse todo, como un niño curioso, pero al mismo tiempo crítico, reflexivo e inmensamente sensible. Porque Tahiel tiene una sensibilidad que me enternece, mirar sus ojos cuando algo le apasiona o cuando ve algo que ama, es lo más lindo que me pasó en la vida. Tiene la habilidad de entregarse a la existencia y de amar sin miedos. 
+          No sólo es inteligente, curioso, reflexivo, filosófico, interesante y sensible, sino que encima es la persona más chistosa que conocí, él es algo de otro mundo. Es chistoso porque tiene una rapidez mental y una habilidad social muy desarrollada, es como si tuviera un súper poder, un superhéroe de los chistes, que me salva cada vez que frunzo el ceño, y hace de mis días más divertidos.
+          Tahiel todo lo nuestro me parece tan increíble, en el sentido más literal de la palabra, porque vos sos increíble. Gracias por elegirme este año, donde todo fue liviano, divertido, interesante, emocionante, amoroso, apasionante, sensible y extremadamente feliz. Ojalá nos elijamos todos los años de nuestras vidas.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRIMERAS INTERACCIONES -->
+  <section id="primeras" class="section-first">
+    <div class="first-inner">
+      <div class="first-text-card">
+        <div class="first-chip">PRIMERAS INTERACCIONES</div>
+
+        <p class="first-paragraph">
+          Me acuerdo que cuando te ví por primera vez en el taller del Tete lo primero que pensé fue
+          en lo interesante que seguramente eras. Me llamó la atención lo dedicado al trabajo de payaso que eras,
+          la concentración y predisposición me enternecieron pero al mismo tiempo me hicieron respetarte,
+          e instalaron una curiosidad en mí, quería saber más de vos, quería entender cómo o por qué no te ví antes,
+          y comencé a imaginar posibles escenarios donde volver a encontrarnos, porque de repente me ponías un poco
+          nerviosa, vos, tu concentración, y tu sonrisa.
+        </p>
+      </div>
+
+      <div class="first-photo">
+        <img src="primeras.jpg" alt="Primeras interacciones">
+      </div>
+    </div>
+
+    <!-- BLOQUE 2 -->
+    <div class="first-inner">
+      <div class="first-text-card">
+        <div class="first-chip">PRIMERAS INTERACCIONES</div>
+
+        <p class="first-paragraph">
+          En el taller de Jona no estaba con muchas pilas, de hecho fui por obligación,
+          hacía frío y no tenía ganas de levantarme un sábado a la mañana. Pero entonces llegaste
+          y todo se tornó interesante y divertido, porque eso provocas en mí cuando ingresas a un
+          lugar, hasta el día de hoy. En fin, el trabajo de la clase se volvió un poco secundario,
+          lo admito, porque mi principal objetivo era cruzar una mirada, rozar tu mano.
+          Y de repente trabajamos en ese ejercicio de miradas, donde sentí escalofríos, mi pecho latía
+          rápido y lo único que quería era besarte. Buscarnos entre ejercicios de teatro me parece
+          un comienzo bellísimo, haber rozado mis manos con vos ese día fue mágico,
+          y volví feliz todo el viaje en bicicleta hasta mi casa.
+        </p>
+      </div>
+
+      <div class="first-photo">
+        <img src="primeras-2.jpg" alt="Primeras interacciones parte 2">
+      </div>
+    </div>
+
+    <!-- BLOQUE 3 -->
+    <div class="first-inner">
+      <div class="first-text-card">
+        <div class="first-chip">PRIMERAS INTERACCIONES</div>
+
+        <p class="first-paragraph">
+          Cuando empezaste a ir a los ensayos de clown me decidí, porque empecé a conocerte más,
+          y me pareciste el chico más copado, interesante y chistoso del mundo,
+          necesitaba por lo menos ser tu amiga. Gracias a Dios no soy tu amiga.
+          Esperaba los ensayos con ansias, me hacía la tonta pero chequeaba si venías,
+          si entrabas por la puerta, qué nueva ocurrencia o chiste traías,
+          y rogaba que vos también estuvieses pendiente de mí.
+        </p>
+      </div>
+
+      <div class="first-photo">
+        <img src="primeras-3.jpg" alt="Primeras interacciones parte 3">
+      </div>
+    </div>
+
+    <!-- BLOQUE 4 -->
+    <div class="first-inner">
+      <div class="first-text-card">
+        <div class="first-chip">PRIMERAS INTERACCIONES</div>
+
+        <p class="first-paragraph">
+          La noche de la función ya había jugado todas mis cartas,
+          la de la seducción, la de los chistes, la de demostrar que yo también era interesante,
+          y vos también habías jugado las tuyas, todo era tensión en nuestros cuerpos,
+          se sentía (y se sigue sintiendo) como dos imanes que necesitan estar juntos,
+          mi cuerpo iba antes que yo, cerca tuyo, te orbitaba sin darme cuenta,
+          o bueno un poco dándome cuenta. Hasta que sucedió, te tiraste al vacío,
+          apostaste por nosotros, porque así sos un apostador al amor
+          y yo que estaba segura de no aguantar más estar lejos tuyo
+          te agarré, y desde entonces nos sostenemos, con besos,
+          con abrazos, con palabras, con ayudas, con consejos,
+          con perdones, con entendimiento, con comunicación,
+          con ternura, con elección, con decisión, con introspección,
+          con chistes, con lenguajes inventados,
+          con juegos tontos que son solo nuestros,
+          con citas románticas, con amor.
+          Te amo payaso hermoso.
+        </p>
+      </div>
+
+      <div class="first-photo">
+        <img src="primeras-4.jpg" alt="Primeras interacciones parte 4">
+      </div>
+    </div>
+  </section>
+
+  <!-- JUEGO ROMÁNTICO -->
+  <section id="juego-romantico" class="section-romantic">
+
+    <!-- BLOQUE 1 -->
+    <div class="romantic-inner">
+      <div class="romantic-chip">JUEGO ROMANTICO</div>
+
+      <div class="romantic-card">
+        <p>¿Qué llevó novio como elemento al taller de golpes y caídas?</p>
+
+        <button class="option" data-question="1" data-correct="false">a) un paraguas</button>
+        <button class="option" data-question="1" data-correct="false">b) un maletín</button>
+        <button class="option" data-question="1" data-correct="true">c) una carpeta grande para planos</button>
+
+        <p class="feedback" id="feedback-1"></p>
+      </div>
+
+      <div class="romantic-card">
+        <p>¿Qué le dijo novia a novio cuando éste se ofreció a buscarla por su casa en su primera cita?</p>
+
+        <button class="option" data-question="2" data-correct="false">a) ¿A dónde vamos?</button>
+        <button class="option" data-question="2" data-correct="false">b) Sii, me alisto y vamos</button>
+        <button class="option" data-question="2" data-correct="true">c) Mirá que tengo calle de tierra</button>
+
+        <p class="feedback" id="feedback-2"></p>
+      </div>
+
+      <div class="romantic-card">
+        <p>¿Dónde fue el segundo beso de los novios?</p>
+
+        <button class="option" data-question="3" data-correct="true">a) en la vereda de la madriguera</button>
+        <button class="option" data-question="3" data-correct="false">b) en las paras de Galatea</button>
+        <button class="option" data-question="3" data-correct="false">c) en el parque</button>
+
+        <p class="feedback" id="feedback-3"></p>
+      </div>
+    </div>
+
+    <!-- BLOQUE 2 -->
+    <div class="romantic-inner">
+      <div class="romantic-card">
+        <p>¿Qué tenían puesto los novios al ponerse de novios?</p>
+
+        <button class="option" data-question="4" data-correct="false">a) ropa de cita</button>
+        <button class="option" data-question="4" data-correct="false">b) los mismos zapatos</button>
+        <button class="option" data-question="4" data-correct="true">c) narices de payasos</button>
+
+        <p class="feedback" id="feedback-4"></p>
+      </div>
+
+      <div class="romantic-card">
+        <p>¿De qué color era la remera de novio en el taller de Jona?</p>
+
+        <button class="option" data-question="5" data-correct="false">a) verde</button>
+        <button class="option" data-question="5" data-correct="true">b) naranja</button>
+        <button class="option" data-question="5" data-correct="false">c) azul</button>
+
+        <p class="feedback" id="feedback-5"></p>
+      </div>
+    </div>
+
+    <!-- BLOQUE FINAL -->
+    <div class="romantic-inner">
+
+      <div class="romantic-final">
+        <div class="romantic-final-photo">
+          <img src="juego-romantico.jpg" alt="Ganaste amor">
+        </div>
+
+        <div class="romantic-final-card">
+          EEEEY AMOOOOR GANASTE 💗<br />
+          AHORA JUGÁ EL MATEMÁTICO PARA<br />
+          CONSEGUIR TU ÚLTIMO REGALO
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- JUEGO MATEMÁTICO (vacío por ahora, para que el botón baje acá) -->
+  <section id="juego-matematico" class="section-romantic">
+      <div class="romantic-chip">JUEGO MATEMATICO</div>
+  </section>
+
+    <section id="juego-matematico" class="section-romantic">
+      <div class="romantic-chip">VIDEO</div>
+  </section>
+
+<audio id="correct-sound" preload="auto"
+  src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_b49216209e.mp3?filename=correct-2-46134.mp3">
+</audio>
+<script>
+  // AUDIO
+  const correctSound = document.getElementById("correct-sound");
+
+  // Tarjetas de preguntas
+  const cards = Array.from(document.querySelectorAll('.romantic-card'));
+  const options = document.querySelectorAll('.option');
+  const finalSection = document.querySelector('.romantic-final');
+
+  let currentIndex = 0;
+
+  // Ocultar todas menos la primera
+  cards.forEach((card, index) => {
+    if (index !== 0) card.style.display = "none";
+  });
+
+  finalSection.style.display = "none";
+
+  // FUNCIÓN DE BRILLITOS ✨ (ajustada con scroll)
+function createSparkle(x, y) {
+  for (let i = 0; i < 10; i++) {
+    const spark = document.createElement('div');
+    spark.classList.add('spark');
+    spark.textContent = "⭐"; // ← ESTRELLA
+
+    document.body.appendChild(spark);
+
+    const angle = (Math.PI * 2 * i) / 10;
+    const distance = 60;
+
+    spark.style.left = `${x + window.scrollX}px`;
+    spark.style.top = `${y + window.scrollY}px`;
+
+    // animación de salida
+    requestAnimationFrame(() => {
+      spark.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(1.5)`;
+      spark.style.opacity = "0";
+    });
+
+    setTimeout(() => spark.remove(), 700);
+  }
+}
+
+
+  // FUNCIÓN LLUVIA DE CORAZONES 💗
+  function launchHearts() {
+    const totalHearts = 35; // cantidad de corazones
+
+    for (let i = 0; i < totalHearts; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '💗';
+
+      // posición horizontal random
+      const left = Math.random() * 100; // vw
+      heart.style.left = `${left}vw`;
+
+      // duración random para que no caigan igual todos
+      const duration = 3 + Math.random() * 3; // 3 a 6s
+      heart.style.animationDuration = `${duration}s`;
+
+      // pequeño delay para que no empiecen todos juntos
+      const delay = Math.random() * 1.5;
+      heart.style.animationDelay = `${delay}s`;
+
+      document.body.appendChild(heart);
+
+      // limpiar del DOM después
+      setTimeout(() => {
+        heart.remove();
+      }, (duration + delay) * 1000);
+    }
+  }
+
+  // EVENTOS DE PREGUNTAS
+  options.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const isCorrect = btn.dataset.correct === "true";
+      const question = btn.dataset.question;
+      const feedback = document.getElementById(`feedback-${question}`);
+      const currentCard = cards[currentIndex];
+
+      // Solo acepta clicks de la tarjeta actual
+      if (!currentCard.contains(btn)) return;
+
+      // Reset de colores
+      currentCard.querySelectorAll('.option').forEach(o => {
+        o.style.background = "rgba(0,0,0,0.2)";
+      });
+
+      if (isCorrect) {
+        // SONIDO (con manejo por si el navegador lo bloquea)
+        if (correctSound) {
+          correctSound.currentTime = 0;
+          correctSound.play().catch(() => {});
+        }
+
+        // BRILLITOS (coordenadas del botón en pantalla)
+        const rect = btn.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        createSparkle(x, y);
+
+        // Estilo correcto
+        btn.style.background = "rgba(0, 255, 100, 0.4)";
+        feedback.textContent = "✔️ Correcto mi amor 😍";
+        feedback.style.color = "#a1ffb7";
+
+        // Avanza
+        currentCard.style.display = "none";
+        currentIndex++;
+
+        if (currentIndex < cards.length) {
+          const nextCard = cards[currentIndex];
+          nextCard.style.display = "block";
+          nextCard.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+          // GANÓ: mostrar pantalla final + corazones
+          finalSection.style.display = "grid";
+          finalSection.scrollIntoView({ behavior: "smooth", block: "center" });
+          launchHearts();
+        }
+
+      } else {
+        // Incorrecto ❌
+        btn.style.background = "rgba(255, 0, 0, 0.4)";
+        feedback.textContent = "❌ Naaaa, esa no 🙊";
+        feedback.style.color = "#ffb4b4";
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

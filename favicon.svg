@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Corazón -->
+  <path d="M50 85 L20 55 C5 40 15 20 35 20 C45 20 50 28 50 28 C50 28 55 20 65 20 C85 20 95 40 80 55 Z"
+        fill="#ff4d6d" />
+
+  <!-- Nariz de payaso -->
+  <circle cx="50" cy="50" r="12" fill="#ff0000" />
+
+  <!-- Mini brillo en la nariz -->
+  <circle cx="46" cy="46" r="4" fill="white" opacity="0.7" />
+</svg>
