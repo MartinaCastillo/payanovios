@@ -4,8 +4,7 @@
   <meta charset="UTF-8" />
   <title>Payanovios</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="icon" type="image/svg+xml" href="favicon.svg" />
-
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
   <style>
     * {
@@ -18,50 +17,64 @@
     body {
       background: #000;
       color: white;
+      min-height: 100vh;
     }
+
+    /* =========================
+       ⭐ FONDO: ESTRELLAS CANVAS
+       ========================= */
+    #starfield {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Todo el contenido arriba del canvas */
+    .page,
+    .section-about,
+    .section-first,
+    .section-romantic {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* =========================
+       ✨ SPARKLES + 💗 CORAZONES
+       ========================= */
     .spark {
-  position: absolute;
-  font-size: 20px;
-  animation: spark-animation 700ms ease-out forwards;
-  pointer-events: none;
-  z-index: 9999;
-}
+      position: absolute;
+      font-size: 20px;
+      animation: spark-animation 700ms ease-out forwards;
+      pointer-events: none;
+      z-index: 9999;
+      will-change: transform, opacity;
+    }
 
-@keyframes spark-animation {
-  0% {
-    transform: scale(0.4);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1.8);
-    opacity: 0;
-  }
-}
+    @keyframes spark-animation {
+      0% { transform: scale(0.4); opacity: 1; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
 
-.heart {
-  position: fixed;
-  top: -40px;
-  font-size: 24px;
-  animation: heart-fall linear forwards;
-  pointer-events: none;
-  z-index: 9998;
-}
+    .heart {
+      position: fixed;
+      top: -40px;
+      font-size: 24px;
+      animation: heart-fall linear forwards;
+      pointer-events: none;
+      z-index: 9998;
+      will-change: transform, opacity;
+    }
 
-@keyframes heart-fall {
-  0% {
-    transform: translateY(0) translateX(0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(110vh) translateX(40px) rotate(25deg);
-    opacity: 0;
-  }
-}
+    @keyframes heart-fall {
+      0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) translateX(40px) rotate(25deg); opacity: 0; }
+    }
 
     /* -------------------------------- PORTADA -------------------------------- */
-
     .page {
-      position: relative;
       width: 100%;
       min-height: 100vh;
       padding: 40px 20px;
@@ -69,10 +82,11 @@
       align-items: center;
       justify-content: center;
       border: 4px solid #d46bff;
-      background: radial-gradient(circle at top left, #d6ffb0, #61793b, #1d2e0e);
+      background: radial-gradient(circle at top left, #3d2057, rgb(111, 63, 174), #d9e3d1);
       overflow: hidden;
     }
 
+    /* Overlay blur: NO debe tapar el contenido, por eso z-index controlado */
     .page::before {
       content: "";
       position: absolute;
@@ -80,6 +94,7 @@
       backdrop-filter: blur(10px);
       opacity: 0.8;
       pointer-events: none;
+      z-index: 1;
     }
 
     .content {
@@ -90,7 +105,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 40px;
-      z-index: 1;
+      z-index: 2;
     }
 
     .photo-wrapper {
@@ -120,6 +135,8 @@
       align-items: center;
       text-align: center;
       gap: 18px;
+      position: relative;
+      z-index: 2;
     }
 
     .title {
@@ -169,22 +186,18 @@
     }
 
     @media (max-width: 900px) {
-      .content {
-        flex-direction: column;
-      }
-      .info {
-        order: -1;
-      }
+      .content { flex-direction: column; }
+      .info { order: -1; }
     }
 
     /* -------------------------------- ACERCA DE NOSOTROS -------------------------------- */
-
     .section-about {
       padding: 60px 40px 80px;
       background: radial-gradient(circle at top left, #d6ffb0, #61793b, #1d2e0e);
       display: flex;
       justify-content: center;
       color: #fff;
+      overflow: hidden;
     }
 
     .about-inner {
@@ -194,6 +207,8 @@
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
       gap: 32px;
       align-items: stretch;
+      position: relative;
+      z-index: 2;
     }
 
     .about-photo {
@@ -246,31 +261,19 @@
     }
 
     @media (max-width: 900px) {
-      .section-about {
-        padding: 40px 20px 60px;
-      }
-      .about-inner {
-        grid-template-columns: 1fr;
-      }
-      .about-photo {
-        max-width: 520px;
-        margin: 0 auto;
-      }
-      .about-text-card {
-        padding: 22px 18px 26px;
-      }
-      .about-heading,
-      .about-paragraph {
-        font-size: 0.85rem;
-      }
+      .section-about { padding: 40px 20px 60px; }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-photo { max-width: 520px; margin: 0 auto; }
+      .about-text-card { padding: 22px 18px 26px; }
+      .about-heading, .about-paragraph { font-size: 0.85rem; }
     }
 
     /* -------------------------------- PRIMERAS INTERACCIONES -------------------------------- */
-
     .section-first {
       padding: 60px 40px 80px;
       background: radial-gradient(circle at top left, #d6ffb0, #61793b, #1d2e0e);
       color: #fff;
+      overflow: hidden;
     }
 
     .first-inner {
@@ -281,11 +284,11 @@
       grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
       gap: 32px;
       align-items: center;
+      position: relative;
+      z-index: 2;
     }
 
-    .section-first .first-inner:last-child {
-      margin-bottom: 0;
-    }
+    .section-first .first-inner:last-child { margin-bottom: 0; }
 
     .first-text-card {
       padding: 28px 32px;
@@ -329,64 +332,56 @@
     }
 
     @media (max-width: 900px) {
-      .section-first {
-        padding: 40px 20px 60px;
-      }
-
-      .first-inner {
-        grid-template-columns: 1fr;
-      }
-
-      .first-photo {
-        max-width: 520px;
-        margin: 0 auto;
-      }
-
-      .first-paragraph {
-        font-size: 0.85rem;
-      }
+      .section-first { padding: 40px 20px 60px; }
+      .first-inner { grid-template-columns: 1fr; }
+      .first-photo { max-width: 520px; margin: 0 auto; }
+      .first-paragraph { font-size: 0.85rem; }
     }
-.video-wrapper {
-  max-width: 900px;
-  margin: 0 auto;
-}
 
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%; /* relación 16:9 */
-  height: 0;
-  overflow: hidden;
-  border-radius: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
-  background: rgba(0, 0, 0, 0.4);
-}
+    /* -------------------------------- VIDEO -------------------------------- */
+    .video-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
 
-.video-container iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
 
     /* -------------------------------- JUEGO ROMÁNTICO -------------------------------- */
-
     .section-romantic {
       padding: 60px 40px 80px;
       background: radial-gradient(circle at top left, #d6ffb0, #61793b, #1d2e0e);
       color: #fff;
+      overflow: hidden;
     }
 
     .romantic-inner {
       max-width: 1150px;
       width: 100%;
       margin: 0 auto 60px;
+      position: relative;
+      z-index: 2;
     }
 
-    .section-romantic .romantic-inner:last-child {
-      margin-bottom: 0;
-    }
+    .section-romantic .romantic-inner:last-child { margin-bottom: 0; }
 
     .romantic-chip {
       align-self: center;
@@ -412,11 +407,7 @@
       font-size: 0.9rem;
     }
 
-    .romantic-card + .romantic-card {
-      margin-top: 40px;
-    }
-
-    /* Pantalla final */
+    .romantic-card + .romantic-card { margin-top: 40px; }
 
     .romantic-final {
       max-width: 1150px;
@@ -458,49 +449,194 @@
     }
 
     @media (max-width: 900px) {
-      .section-romantic {
-        padding: 40px 20px 60px;
-      }
-
-      .romantic-card {
-        font-size: 0.85rem;
-      }
-
-      .romantic-final {
-        grid-template-columns: 1fr;
-      }
-
-      .romantic-final-card {
-        font-size: 0.85rem;
-      }
+      .section-romantic { padding: 40px 20px 60px; }
+      .romantic-card { font-size: 0.85rem; }
+      .romantic-final { grid-template-columns: 1fr; }
+      .romantic-final-card { font-size: 0.85rem; }
     }
-.option {
-  display: block;
-  width: 100%;
-  margin: 6px 0;
-  padding: 12px;
+
+    .option {
+      display: block;
+      width: 100%;
+      margin: 6px 0;
+      padding: 12px;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      background: rgba(0, 0, 0, 0.2);
+      color: #fff;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .option:hover { background: rgba(255, 255, 255, 0.25); }
+
+    .feedback {
+      margin-top: 12px;
+      font-weight: bold;
+      text-align: center;
+      min-height: 20px;
+    }
+    .section-romantic {
+  padding: 64px 16px;
+}
+
+.romantic-chip {
+  padding: 8px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  font-size: 12px;
+  border: 1px solid rgba(255,255,255,.25);
+  margin-bottom: 18px;
+}
+
+.game-card {
+  max-width: 760px;
+  margin: 0 auto;
+  border-radius: 18px;
+  padding: 22px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.game-title {
+  margin: 0 0 10px;
+  font-size: 22px;
+}
+
+.game-text {
+  margin: 0 0 16px;
+  line-height: 1.55;
+  opacity: 0.95;
+}
+
+.heart {
+  font-weight: 800;
+}
+
+.equation-box {
+  border-radius: 14px;
+  padding: 14px;
+  border: 1px dashed rgba(255,255,255,.25);
+  background: rgba(0,0,0,.18);
+  margin-bottom: 16px;
+}
+
+.eq-list {
+  margin: 8px 0 12px 18px;
+  line-height: 1.55;
+}
+
+.eq-formula {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin-top: 6px;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.k-input {
+  flex: 1;
+  min-width: 220px;
+  padding: 12px 14px;
   border-radius: 12px;
-  border: 2px solid rgba(255, 255, 255, 0.7);
-  background: rgba(0,0,0,0.2);
-  color: #fff;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.08);
+  color: inherit;
+  outline: none;
+}
+
+.k-input:focus {
+  border-color: rgba(255,255,255,.45);
+}
+
+.k-btn {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.14);
+  color: inherit;
   cursor: pointer;
-  transition: 0.2s;
+  font-weight: 800;
 }
 
-.option:hover {
-  background: rgba(255,255,255,0.25);
+.k-btn:hover {
+  transform: translateY(-1px);
 }
 
-.feedback {
+.k-msg {
+  margin: 10px 0 0;
+  min-height: 22px;
+  font-weight: 700;
+}
+
+.k-msg.ok {
+  opacity: 1;
+}
+
+.k-msg.bad {
+  opacity: 1;
+}
+
+.gift-box {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.10);
+}
+
+.gift-header {
+  font-weight: 900;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.gift-text {
+  margin: 0 0 12px;
+  line-height: 1.55;
+}
+
+.gift-link {
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.22);
+  text-decoration: none;
+  color: inherit;
+  background: rgba(0,0,0,.18);
+  font-weight: 800;
+}
+
+.solution {
   margin-top: 12px;
-  font-weight: bold;
-  text-align: center;
-  min-height: 20px;
+}
+
+.solution-body {
+  margin-top: 10px;
+  line-height: 1.55;
+  opacity: 0.95;
+}
+
+.hidden {
+  display: none;
 }
 
   </style>
 </head>
+
 <body>
+  <!-- ⭐ ESTRELLAS (FONDO GLOBAL) -->
+  <canvas id="starfield" aria-hidden="true"></canvas>
 
   <!-- PORTADA -->
   <div class="page" id="inicio">
@@ -531,7 +667,6 @@
   <!-- ACERCA DE NOSOTROS -->
   <section id="acerca" class="section-about">
     <div class="about-inner">
-
       <div class="about-photo">
         <img src="acerca.jpg" alt="Tahiel y vos" />
       </div>
@@ -545,12 +680,11 @@
         </h2>
 
         <p class="about-paragraph">
-          Tahiel es extraordinario, habita una existencia curiosa y eso lo hace tan interesante, porque sabe muchas cosas y lo que no sabe lo aprende. No hay posibilidad de que tus conversaciones con él sean aburridas, le gusta filosofar y preguntarse todo, como un niño curioso, pero al mismo tiempo crítico, reflexivo e inmensamente sensible. Porque Tahiel tiene una sensibilidad que me enternece, mirar sus ojos cuando algo le apasiona o cuando ve algo que ama, es lo más lindo que me pasó en la vida. Tiene la habilidad de entregarse a la existencia y de amar sin miedos. 
+          Tahiel es extraordinario, habita una existencia curiosa y eso lo hace tan interesante, porque sabe muchas cosas y lo que no sabe lo aprende. No hay posibilidad de que tus conversaciones con él sean aburridas, le gusta filosofar y preguntarse todo, como un niño curioso, pero al mismo tiempo crítico, reflexivo e inmensamente sensible. Porque Tahiel tiene una sensibilidad que me enternece, mirar sus ojos cuando algo le apasiona o cuando ve algo que ama, es lo más lindo que me pasó en la vida. Tiene la habilidad de entregarse a la existencia y de amar sin miedos.
           No sólo es inteligente, curioso, reflexivo, filosófico, interesante y sensible, sino que encima es la persona más chistosa que conocí, él es algo de otro mundo. Es chistoso porque tiene una rapidez mental y una habilidad social muy desarrollada, es como si tuviera un súper poder, un superhéroe de los chistes, que me salva cada vez que frunzo el ceño, y hace de mis días más divertidos.
           Tahiel todo lo nuestro me parece tan increíble, en el sentido más literal de la palabra, porque vos sos increíble. Gracias por elegirme este año, donde todo fue liviano, divertido, interesante, emocionante, amoroso, apasionante, sensible y extremadamente feliz. Ojalá nos elijamos todos los años de nuestras vidas.
         </p>
       </div>
-
     </div>
   </section>
 
@@ -559,7 +693,6 @@
     <div class="first-inner">
       <div class="first-text-card">
         <div class="first-chip">PRIMERAS INTERACCIONES</div>
-
         <p class="first-paragraph">
           Me acuerdo que cuando te ví por primera vez en el taller del Tete lo primero que pensé fue
           en lo interesante que seguramente eras. Me llamó la atención lo dedicado al trabajo de payaso que eras,
@@ -569,17 +702,14 @@
           nerviosa, vos, tu concentración, y tu sonrisa.
         </p>
       </div>
-
       <div class="first-photo">
         <img src="primeras.jpg" alt="Primeras interacciones">
       </div>
     </div>
 
-    <!-- BLOQUE 2 -->
     <div class="first-inner">
       <div class="first-text-card">
         <div class="first-chip">PRIMERAS INTERACCIONES</div>
-
         <p class="first-paragraph">
           En el taller de Jona no estaba con muchas pilas, de hecho fui por obligación,
           hacía frío y no tenía ganas de levantarme un sábado a la mañana. Pero entonces llegaste
@@ -592,17 +722,14 @@
           y volví feliz todo el viaje en bicicleta hasta mi casa.
         </p>
       </div>
-
       <div class="first-photo">
         <img src="primeras-2.jpg" alt="Primeras interacciones parte 2">
       </div>
     </div>
 
-    <!-- BLOQUE 3 -->
     <div class="first-inner">
       <div class="first-text-card">
         <div class="first-chip">PRIMERAS INTERACCIONES</div>
-
         <p class="first-paragraph">
           Cuando empezaste a ir a los ensayos de clown me decidí, porque empecé a conocerte más,
           y me pareciste el chico más copado, interesante y chistoso del mundo,
@@ -612,17 +739,14 @@
           y rogaba que vos también estuvieses pendiente de mí.
         </p>
       </div>
-
       <div class="first-photo">
         <img src="primeras-3.jpg" alt="Primeras interacciones parte 3">
       </div>
     </div>
 
-    <!-- BLOQUE 4 -->
     <div class="first-inner">
       <div class="first-text-card">
         <div class="first-chip">PRIMERAS INTERACCIONES</div>
-
         <p class="first-paragraph">
           La noche de la función ya había jugado todas mis cartas,
           la de la seducción, la de los chistes, la de demostrar que yo también era interesante,
@@ -642,7 +766,6 @@
           Te amo payaso hermoso.
         </p>
       </div>
-
       <div class="first-photo">
         <img src="primeras-4.jpg" alt="Primeras interacciones parte 4">
       </div>
@@ -651,73 +774,57 @@
 
   <!-- JUEGO ROMÁNTICO -->
   <section id="juego-romantico" class="section-romantic">
-
-    <!-- BLOQUE 1 -->
     <div class="romantic-inner">
       <div class="romantic-chip">JUEGO ROMANTICO</div>
 
       <div class="romantic-card">
         <p>¿Qué llevó novio como elemento al taller de golpes y caídas?</p>
-
         <button class="option" data-question="1" data-correct="false">a) un paraguas</button>
         <button class="option" data-question="1" data-correct="false">b) un maletín</button>
         <button class="option" data-question="1" data-correct="true">c) una carpeta grande para planos</button>
-
         <p class="feedback" id="feedback-1"></p>
       </div>
 
       <div class="romantic-card">
         <p>¿Qué le dijo novia a novio cuando éste se ofreció a buscarla por su casa en su primera cita?</p>
-
         <button class="option" data-question="2" data-correct="false">a) ¿A dónde vamos?</button>
         <button class="option" data-question="2" data-correct="false">b) Sii, me alisto y vamos</button>
         <button class="option" data-question="2" data-correct="true">c) Mirá que tengo calle de tierra</button>
-
         <p class="feedback" id="feedback-2"></p>
       </div>
 
       <div class="romantic-card">
         <p>¿Dónde fue el segundo beso de los novios?</p>
-
         <button class="option" data-question="3" data-correct="true">a) en la vereda de la madriguera</button>
         <button class="option" data-question="3" data-correct="false">b) en las paras de Galatea</button>
         <button class="option" data-question="3" data-correct="false">c) en el parque</button>
-
         <p class="feedback" id="feedback-3"></p>
       </div>
     </div>
 
-    <!-- BLOQUE 2 -->
     <div class="romantic-inner">
       <div class="romantic-card">
         <p>¿Qué tenían puesto los novios al ponerse de novios?</p>
-
         <button class="option" data-question="4" data-correct="false">a) ropa de cita</button>
         <button class="option" data-question="4" data-correct="false">b) los mismos zapatos</button>
         <button class="option" data-question="4" data-correct="true">c) narices de payasos</button>
-
         <p class="feedback" id="feedback-4"></p>
       </div>
 
       <div class="romantic-card">
         <p>¿De qué color era la remera de novio en el taller de Jona?</p>
-
         <button class="option" data-question="5" data-correct="false">a) verde</button>
         <button class="option" data-question="5" data-correct="true">b) naranja</button>
         <button class="option" data-question="5" data-correct="false">c) azul</button>
-
         <p class="feedback" id="feedback-5"></p>
       </div>
     </div>
 
-    <!-- BLOQUE FINAL -->
     <div class="romantic-inner">
-
       <div class="romantic-final">
         <div class="romantic-final-photo">
           <img src="juego-romantico.jpg" alt="Ganaste amor">
         </div>
-
         <div class="romantic-final-card">
           EEEEY AMOOOOR GANASTE 💗<br />
           AHORA JUGÁ EL MATEMÁTICO PARA<br />
@@ -725,20 +832,79 @@
         </div>
       </div>
     </div>
-
   </section>
+<!-- JUEGO MATEMÁTICO -->
+<section id="juego-matematico" class="section-romantic hidden">
+  <div class="romantic-chip">JUEGO MATEMATICO</div>
 
-  <!-- JUEGO MATEMÁTICO (vacío por ahora, para que el botón baje acá) -->
-  <section id="juego-matematico" class="section-romantic">
-      <div class="romantic-chip">JUEGO MATEMATICO</div>
-  </section>
+  <div class="game-card">
+    <h2 class="game-title">🔐 JUEGO MATEMÁTICO</h2>
 
- <section id="video" class="section-romantic">
+    <p class="game-text">
+      Para acceder a <span class="heart">❤ tu regalo ❤</span>, el sistema requiere una clave de acceso única (<b>K</b>).
+      Resolvé la siguiente ecuación:
+    </p>
+
+    <div class="equation-box">
+      <div class="eq-line"><b>Variables:</b></div>
+      <ul class="eq-list">
+        <li><b>d</b>: Días totales que pasaron desde el <b>19/02/2025</b> al <b>19/02/2026</b>.</li>
+        <li><b>h</b>: Cantidad de horas en un día.</li>
+        <li><b>m</b>: El número del mes de nuestro aniversario.</li>
+      </ul>
+
+      <div class="eq-line"><b>Ecuación para hallar K:</b></div>
+      <div class="eq-formula">K = (d × h) + (m<sup>4</sup>)</div>
+    </div>
+
+    <div class="input-row">
+      <input
+        id="k-input"
+        class="k-input"
+        type="password"
+        inputmode="numeric"
+        placeholder="Ingresá la clave K…"
+        aria-label="Ingresar clave K"
+      />
+      <button id="k-btn" class="k-btn" type="button">Desbloquear</button>
+    </div>
+
+    <p id="k-msg" class="k-msg" role="status" aria-live="polite"></p>
+
+    <!-- REGALO (oculto hasta que acierte) -->
+    <div id="gift-box" class="gift-box hidden">
+      <div class="gift-header">🎁 ¡Acceso concedido!</div>
+      <p class="gift-text">
+        Acá va tu regalo. Podés poner un link, un video, una sorpresa, lo que quieras 💕
+      </p>
+
+      <!-- Ejemplo: link -->
+      <a class="gift-link" href="#TU-SECCION-REGALO">Ir a mi regalo</a>
+
+      <!-- Ejemplo: si querés mostrar la solución también -->
+      <details class="solution">
+        <summary>Ver solución</summary>
+        <div class="solution-body">
+          <p><b>d</b> = 365</p>
+          <p><b>h</b> = 24</p>
+          <p><b>m</b> = 2</p>
+          <p>365 × 24 = 8760</p>
+          <p>2<sup>4</sup> = 16</p>
+          <p><b>K</b> = 8760 + 16 = <b>8776</b></p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+  <!-- VIDEO -->
+<!-- VIDEO -->
+<section id="video" class="section-romantic hidden">
   <div class="romantic-chip">VIDEO ESPECIAL</div>
 
   <div class="video-wrapper">
     <div class="video-container">
-      <iframe 
+      <iframe
         src="https://www.youtube.com/embed/tgbNymZ7vqY"
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -748,34 +914,127 @@
   </div>
 </section>
 
+  <audio id="correct-sound" preload="auto"
+    src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_b49216209e.mp3?filename=correct-2-46134.mp3">
+  </audio>
 
-<audio id="correct-sound" preload="auto"
-  src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_b49216209e.mp3?filename=correct-2-46134.mp3">
-</audio>
-<script>
-  // AUDIO
-  const correctSound = document.getElementById("correct-sound");
+  <script>
+  /* =========================
+   ⭐ CANVAS: ESTRELLAS ANIMADAS (SIEMPRE SE VEN)
+   ========================= */
+(function initStarfield() {
+  const canvas = document.getElementById("starfield");
+  if (!canvas) return;
 
-  // Tarjetas de preguntas
-  const cards = Array.from(document.querySelectorAll('.romantic-card'));
-  const options = document.querySelectorAll('.option');
-  const finalSection = document.querySelector('.romantic-final');
+  const ctx = canvas.getContext("2d", { alpha: true });
 
-  let currentIndex = 0;
+  let w = 0, h = 0, dpr = 1;
+  let starsNear = [];
+  let starsMid = [];
+  let starsFar = [];
 
-  // Ocultar todas menos la primera
-  cards.forEach((card, index) => {
-    if (index !== 0) card.style.display = "none";
-  });
+  const COUNT_FAR = 140;
+  const COUNT_MID = 90;
+  const COUNT_NEAR = 45;
 
-  finalSection.style.display = "none";
+  function rand(min, max) { return Math.random() * (max - min) + min; }
 
-  // FUNCIÓN DE BRILLITOS ✨ (ajustada con scroll)
+  function resize() {
+    dpr = Math.max(1, window.devicePixelRatio || 1);
+    w = Math.floor(window.innerWidth);
+    h = Math.floor(window.innerHeight);
+
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    starsFar = Array.from({ length: COUNT_FAR }, () => makeStar("far", true));
+    starsMid = Array.from({ length: COUNT_MID }, () => makeStar("mid", true));
+    starsNear = Array.from({ length: COUNT_NEAR }, () => makeStar("near", true));
+  }
+
+  function makeStar(layer, initial) {
+    const x = rand(0, w);
+    const y = initial ? rand(0, h) : -10;
+
+    if (layer === "far") {
+      return { x, y, r: rand(0.5, 1.1), a: rand(0.08, 0.28), vy: rand(0.03, 0.08), tw: rand(0.0015, 0.004), ph: rand(0, Math.PI * 2) };
+    }
+    if (layer === "mid") {
+      return { x, y, r: rand(0.7, 1.5), a: rand(0.10, 0.36), vy: rand(0.06, 0.14), tw: rand(0.002, 0.006), ph: rand(0, Math.PI * 2) };
+    }
+    return { x, y, r: rand(1.0, 2.1), a: rand(0.14, 0.55), vy: rand(0.10, 0.22), tw: rand(0.003, 0.010), ph: rand(0, Math.PI * 2) };
+  }
+
+  function step(stars) {
+    for (const s of stars) {
+      s.y += s.vy;
+      if (s.y > h + 10) {
+        s.x = rand(0, w);
+        s.y = -10;
+      }
+    }
+  }
+
+  function render(stars, t) {
+    for (const s of stars) {
+      const tw = (Math.sin(t * s.tw + s.ph) + 1) / 2;
+      const alpha = s.a * (0.55 + 0.45 * tw);
+
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, w, h);
+    const t = performance.now();
+
+    step(starsFar); step(starsMid); step(starsNear);
+    render(starsFar, t); render(starsMid, t); render(starsNear, t);
+
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener("resize", resize, { passive: true });
+  resize();
+  loop();
+})();
+
+
+/* =========================
+   ✅ TU LÓGICA DE JUEGO + SPARKLES + CORAZONES
+   ========================= */
+// AUDIO
+const correctSound = document.getElementById("correct-sound");
+
+// Tarjetas de preguntas
+const cards = Array.from(document.querySelectorAll('.romantic-card'));
+const options = document.querySelectorAll('.option');
+const finalSection = document.querySelector('.romantic-final');
+
+// ✅ NUEVO: Sección del juego matemático (arranca oculta con .hidden)
+const mathGameSection = document.getElementById("juego-matematico");
+
+let currentIndex = 0;
+
+// Ocultar todas menos la primera
+cards.forEach((card, index) => {
+  if (index !== 0) card.style.display = "none";
+});
+
+if (finalSection) finalSection.style.display = "none";
+
+// FUNCIÓN DE BRILLITOS ✨ (ajustada con scroll)
 function createSparkle(x, y) {
   for (let i = 0; i < 10; i++) {
     const spark = document.createElement('div');
     spark.classList.add('spark');
-    spark.textContent = "⭐"; // ← ESTRELLA
+    spark.textContent = "⭐";
 
     document.body.appendChild(spark);
 
@@ -785,7 +1044,6 @@ function createSparkle(x, y) {
     spark.style.left = `${x + window.scrollX}px`;
     spark.style.top = `${y + window.scrollY}px`;
 
-    // animación de salida
     requestAnimationFrame(() => {
       spark.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(1.5)`;
       spark.style.opacity = "0";
@@ -795,95 +1053,141 @@ function createSparkle(x, y) {
   }
 }
 
+// FUNCIÓN LLUVIA DE CORAZONES 💗
+function launchHearts() {
+  const totalHearts = 35;
+  for (let i = 0; i < totalHearts; i++) {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.textContent = '💗';
 
-  // FUNCIÓN LLUVIA DE CORAZONES 💗
-  function launchHearts() {
-    const totalHearts = 35; // cantidad de corazones
+    const left = Math.random() * 100;
+    heart.style.left = `${left}vw`;
 
-    for (let i = 0; i < totalHearts; i++) {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.textContent = '💗';
+    const duration = 3 + Math.random() * 3;
+    heart.style.animationDuration = `${duration}s`;
 
-      // posición horizontal random
-      const left = Math.random() * 100; // vw
-      heart.style.left = `${left}vw`;
+    const delay = Math.random() * 1.5;
+    heart.style.animationDelay = `${delay}s`;
 
-      // duración random para que no caigan igual todos
-      const duration = 3 + Math.random() * 3; // 3 a 6s
-      heart.style.animationDuration = `${duration}s`;
+    document.body.appendChild(heart);
 
-      // pequeño delay para que no empiecen todos juntos
-      const delay = Math.random() * 1.5;
-      heart.style.animationDelay = `${delay}s`;
-
-      document.body.appendChild(heart);
-
-      // limpiar del DOM después
-      setTimeout(() => {
-        heart.remove();
-      }, (duration + delay) * 1000);
-    }
+    setTimeout(() => {
+      heart.remove();
+    }, (duration + delay) * 1000);
   }
+}
 
-  // EVENTOS DE PREGUNTAS
-  options.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const isCorrect = btn.dataset.correct === "true";
-      const question = btn.dataset.question;
-      const feedback = document.getElementById(`feedback-${question}`);
-      const currentCard = cards[currentIndex];
+// EVENTOS DE PREGUNTAS
+options.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const isCorrect = btn.dataset.correct === "true";
+    const question = btn.dataset.question;
+    const feedback = document.getElementById(`feedback-${question}`);
+    const currentCard = cards[currentIndex];
 
-      // Solo acepta clicks de la tarjeta actual
-      if (!currentCard.contains(btn)) return;
+    // Solo acepta clicks de la tarjeta actual
+    if (!currentCard || !currentCard.contains(btn)) return;
 
-      // Reset de colores
-      currentCard.querySelectorAll('.option').forEach(o => {
-        o.style.background = "rgba(0,0,0,0.2)";
-      });
+    // Reset de colores
+    currentCard.querySelectorAll('.option').forEach(o => {
+      o.style.background = "rgba(0,0,0,0.2)";
+    });
 
-      if (isCorrect) {
-        // SONIDO (con manejo por si el navegador lo bloquea)
-        if (correctSound) {
-          correctSound.currentTime = 0;
-          correctSound.play().catch(() => {});
-        }
+    if (isCorrect) {
+      // SONIDO
+      if (correctSound) {
+        correctSound.currentTime = 0;
+        correctSound.play().catch(() => {});
+      }
 
-        // BRILLITOS (coordenadas del botón en pantalla)
-        const rect = btn.getBoundingClientRect();
-        const x = rect.left + rect.width / 2;
-        const y = rect.top + rect.height / 2;
-        createSparkle(x, y);
+      // BRILLITOS
+      const rect = btn.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      createSparkle(x, y);
 
-        // Estilo correcto
-        btn.style.background = "rgba(0, 255, 100, 0.4)";
+      // Estilo correcto
+      btn.style.background = "rgba(0, 255, 100, 0.4)";
+      if (feedback) {
         feedback.textContent = "✔️ Correcto mi amor 😍";
         feedback.style.color = "#a1ffb7";
+      }
 
-        // Avanza
-        currentCard.style.display = "none";
-        currentIndex++;
+      // Avanza
+      currentCard.style.display = "none";
+      currentIndex++;
 
-        if (currentIndex < cards.length) {
-          const nextCard = cards[currentIndex];
-          nextCard.style.display = "block";
-          nextCard.scrollIntoView({ behavior: "smooth", block: "center" });
-        } else {
-          // GANÓ: mostrar pantalla final + corazones
+      if (currentIndex < cards.length) {
+        const nextCard = cards[currentIndex];
+        nextCard.style.display = "block";
+        nextCard.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else {
+        // GANÓ
+        if (finalSection) {
           finalSection.style.display = "grid";
           finalSection.scrollIntoView({ behavior: "smooth", block: "center" });
-          launchHearts();
         }
 
-      } else {
-        // Incorrecto ❌
-        btn.style.background = "rgba(255, 0, 0, 0.4)";
+        launchHearts();
+
+        // ✅ NUEVO: mostrar el juego matemático SOLO al ganar el romántico
+        if (mathGameSection) {
+          mathGameSection.classList.remove("hidden");
+          setTimeout(() => {
+            mathGameSection.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 500);
+        }
+      }
+
+    } else {
+      btn.style.background = "rgba(255, 0, 0, 0.4)";
+      if (feedback) {
         feedback.textContent = "❌ Naaaa, esa no 🙊";
         feedback.style.color = "#ffb4b4";
       }
-    });
+    }
   });
-</script>
+});
 
+(function () {
+    const CORRECT_K = "8776";
+
+    const input = document.getElementById("k-input");
+    const btn = document.getElementById("k-btn");
+    const msg = document.getElementById("k-msg");
+    const giftBox = document.getElementById("gift-box");
+    const videoSection = document.getElementById("video");
+
+    function unlock() {
+      const value = (input.value || "").trim();
+
+      if (value === CORRECT_K) {
+        msg.textContent = "✅ ¡Clave correcta! Acceso concedido 💕";
+        msg.className = "k-msg ok";
+
+        // Mostrar caja del regalo
+        giftBox.classList.remove("hidden");
+
+        // Mostrar sección de video
+        videoSection.classList.remove("hidden");
+
+        input.value = "";
+        input.blur();
+      } else {
+        msg.textContent = "❌ Clave incorrecta. Intentá otra vez 💞";
+        msg.className = "k-msg bad";
+
+        giftBox.classList.add("hidden");
+        videoSection.classList.add("hidden");
+      }
+    }
+
+    btn.addEventListener("click", unlock);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") unlock();
+    });
+  })();
+  </script>
 </body>
 </html>
