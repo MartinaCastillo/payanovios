@@ -627,6 +627,13 @@
   display: none;
 }
 
+.rotate img {
+  transform: rotate(90deg);
+  height: 500px;      
+  border-radius: 20px;
+  overflow: hidden;  
+}
+
   </style>
 </head>
 
@@ -735,7 +742,7 @@
           y rogaba que vos también estuvieses pendiente de mí.
         </p>
       </div>
-      <div class="first-photo">
+      <div class="first-photo rotate">
         <img src="img/img5.jpeg" alt="Primeras interacciones parte 3">
       </div>
     </div>
@@ -792,7 +799,7 @@
       <div class="romantic-card">
         <p>¿Dónde fue el segundo beso de los novios?</p>
         <button class="option" data-question="3" data-correct="true">a) en la vereda de la madriguera</button>
-        <button class="option" data-question="3" data-correct="false">b) en las paras de Galatea</button>
+        <button class="option" data-question="3" data-correct="false">b) en las patas de Galatea</button>
         <button class="option" data-question="3" data-correct="false">c) en el parque</button>
         <p class="feedback" id="feedback-3"></p>
       </div>
@@ -894,7 +901,7 @@
   <div class="video-wrapper">
     <div class="video-container">
       <iframe
-        src="https://www.youtube.com/watch?v=QqGVWIohQBk"
+        src="https://www.youtube.com/embed/QqGVWIohQBk"
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen>
